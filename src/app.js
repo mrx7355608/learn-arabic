@@ -23,7 +23,7 @@ app.use("/api/v1/lectures", lectureRouter);
 
 // Catch 404
 app.use((req, res, next) => {
-    return next(new ApiError("Resource not found", 404));
+    return next(new ApiError("Page not found", 404));
 });
 
 // Error Handler
