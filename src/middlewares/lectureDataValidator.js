@@ -1,10 +1,8 @@
-const ApiError = require("@utils/ApiError");
+// const ApiError = require("@utils/ApiError");
+const asyncErrorHandler = require("express-async-handler");
 const lectureValidationSchema = require("@api/lectures/lectures.schemas");
 
-module.exports = async (req, res, next) => {
-    try {
-        await lectureValidationSchema.validateAsync(req.body);
-    } catch (err) {
-        return next(new ApiError(err.message, 400));
-    }
-};
+module.exports = asyncErrorHandler(async (req, res, next) => {
+    await lectureValidationSchema.validateAsync(req.body);
+    return next();
+});
