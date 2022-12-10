@@ -4,6 +4,7 @@ const {
     getLectureById,
     createLecture,
 } = require("./lectures.data");
+const ApiError = require("@utils/ApiError");
 
 class LectureServices {
     async fetchData() {
