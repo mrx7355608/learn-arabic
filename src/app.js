@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const ApiError = require("@utils/ApiError");
 const errorHandler = require("@middlewares/errorHandler");
+// Routers
+const lectureRouter = require("@api/lectures/lectures.routes");
 
 const app = express();
 
@@ -17,10 +19,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes setup
+app.use("/api/v1/lectures", lectureRouter);
 
 // Catch 404
 app.use((req, res, next) => {
-  return next(new ApiError("Resource not found", 404));
+    return next(new ApiError("Resource not found", 404));
 });
 
 // Error Handler
