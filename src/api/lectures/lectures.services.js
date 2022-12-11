@@ -10,35 +10,43 @@ const {
 const ApiError = require("@utils/ApiError");
 
 class LectureServices {
+    // get all lectures
     async fetchData() {
         const data = await getLectures();
         const results = data.length;
         return { data, results };
     }
 
+    // get one lecture by id
     async fetchById(id) {
         const lecture = await getLectureById(id);
         if (lecture == null) throw new ApiError("Lecture not found", 404);
         return { lecture };
     }
 
+    // get one lecture with a filter
     async fetchOne(filter) {
         const lecture = await getOneLecture(filter);
         if (lecture == null) throw new ApiError("Lecture not found", 404);
         return { lecture };
     }
-	
+
+    // create new lecture
     async create(data) {
         const newLecture = await createLecture(data);
         return { newLecture };
     }
-	
+
+    // Update
     async update(id, data) {
         await this.fetchById(id);
         const newData = await updateLecture(id, data);
+        if (newData == null)
+            throw new ApiError("Failed to update lecture.", 400);
         return { newData };
     }
-	
+
+    // Update lecture material
     async updateMaterial(lectureId, materialId, data) {
         await this.fetchById(lectureId);
         const newData = await updateLectureMaterial(
@@ -46,13 +54,19 @@ class LectureServices {
             materialId,
             data
         );
+        if (newData == null)
+            throw new ApiError("Failed to update lecture", 400);
         return { newData };
     }
 
-	async delete(id) {
-		const result = await deleteLecture(id);
-		return { result }
-	}
+    // Delete lecture
+    async delete(id) {
+        await this.fetchById(id);
+        const result = await deleteLecture(id);
+        if (result == null)
+            throw new ApiError("Failed to delete lecture.", 400);
+        return { result };
+    }
 }
 
 module.exports = LectureServices;
