@@ -2,6 +2,8 @@ const LectureModel = require("./lectures.model");
 
 exports.getLectures = async () => {
     // TODO: Add filtering, sorting and pagination
+    // sorting => oldest first/ newest first
+    // filtering => title, topic
     const data = await LectureModel.find({});
     return data;
 };

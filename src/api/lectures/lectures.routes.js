@@ -7,12 +7,32 @@ const { updateLecture } = require("./lectures.data");
 const router = express.Router();
 const services = new LectureServices();
 
+// Populate req.query object
+router.use((req, res, next) => {
+    // MAGIC OF `* 1`
+    // "4" * 1 || 1 => 4
+    // "pageNumber" * 1 || 1 => 1
+    // null * 1 || 1 => 1
+    // undefined * 1 || 1 => 1
+    const DEFAULT_PAGE = 1;
+    const DEFAULT_SORT = "new";
+    const DEFAULT_LIMIT = 10;
+
+    if (req.query.sort !== "new" || req.query.sort !== "old") {
+        req.query.sort = DEFAULT_SORT;
+    }
+    req.query.page = req.query.page * 1 || DEFAULT_PAGE;
+    req.query.limit = req.query.limit * 1 || DEFAULT_LIMIT;
+    return next();
+});
+
 // Get all lectures
 router.get(
     "/",
     asyncErrorHandler(async (req, res, next) => {
-        const { results, data } = await services.fetchData();
-        return res.status(200).json({ results, data });
+        // const { results, data } = await services.fetchData();
+        // return res.status(200).json({ results, data });
+        return res.json({ query: req.query });
     })
 );
 
