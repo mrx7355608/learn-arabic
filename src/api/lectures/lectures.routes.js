@@ -18,7 +18,7 @@ router.use((req, res, next) => {
     const DEFAULT_SORT = "new";
     const DEFAULT_LIMIT = 10;
 
-    if (req.query.sort !== "new" || req.query.sort !== "old") {
+    if (!req.query.sort || req.query.sort !== "old") {
         req.query.sort = DEFAULT_SORT;
     }
     req.query.page = req.query.page * 1 || DEFAULT_PAGE;
