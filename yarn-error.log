@@ -1,5 +1,5 @@
 Arguments: 
-  /nix/store/akfdiq8w936a8ah16k39scpi8094czb1-nodejs-16.17.1/bin/node /nix/store/9avsx67q4w8dwgfifm92g0lrv7yw9jp9-yarn-1.22.18/bin/yarn add @middlewares/errorHandler @config/index @utils/ApiError
+  /nix/store/akfdiq8w936a8ah16k39scpi8094czb1-nodejs-16.17.1/bin/node /nix/store/9avsx67q4w8dwgfifm92g0lrv7yw9jp9-yarn-1.22.18/bin/yarn add @utils/ApiError @config/index @middlewares/errorHandler
 
 PATH: 
   /home/runner/learn-arabic/.config/npm/node_global/bin:/home/runner/learn-arabic/node_modules/.bin:/nix/store/44v410nnqkqngfz430cl1b9wl9ri7bjv-bash-interactive-5.1-p16/bin:/nix/store/7946ckc102w3d4dvlbrc7cyw9p5n6fyk-patchelf-0.14.5/bin:/nix/store/lsyzzki1iv9gwk4vdss7i1cjxrnxling-gcc-wrapper-11.3.0/bin:/nix/store/zg9fzn6m0480xqr2mx5ynqkziribycgv-gcc-11.3.0/bin:/nix/store/27vkkb5sc7ixjrgnyxdssypzi5yk29xn-glibc-2.34-210-bin/bin:/nix/store/kgllqqq7gjwxn8ifhkhb321855cskks4-coreutils-9.0/bin:/nix/store/ddr0bn02d8k41zyk8rsxhidq5rfza590-binutils-wrapper-2.38/bin:/nix/store/z3l0b9fha7yj3xnwbf49kd69qc6d5l0d-binutils-2.38/bin:/nix/store/akfdiq8w936a8ah16k39scpi8094czb1-nodejs-16.17.1/bin:/nix/store/j1axd79dhgkxr5mz7d18bp6mqg342zvf-typescript-language-server-0.9.6/bin:/nix/store/9avsx67q4w8dwgfifm92g0lrv7yw9jp9-yarn-1.22.18/bin:/nix/store/9n1wgwvbb0mw3m34m69lmqwzc15ilh3v-jest-cli-23.6.0/bin:/nix/store/bywndd497xxaxbmg3v95ja06yhsviy71-findutils-4.9.0/bin:/nix/store/zzpl8z8fd1ryi67xjzhf3if0dfm14p3b-diffutils-3.8/bin:/nix/store/vz1lwsys8xspk9daf32hhxsvg3clpp72-gnused-4.8/bin:/nix/store/5g1rndqj79iv86macp0br5qha51qdsf8-gnugrep-3.7/bin:/nix/store/m39rqb8nimzhkiqic631v9bzaj96jrf4-gawk-5.1.1/bin:/nix/store/h0a3dsnmfbsnkj846maf0749pzc4zmq4-gnutar-1.34/bin:/nix/store/s93vizxg0hrzza1ss5cqqsmxb6f7z874-gzip-1.12/bin:/nix/store/9xpaxsm14ig9awg65ag6h04yyp8ym5i5-bzip2-1.0.6.0.2-bin/bin:/nix/store/w4mvsn06dwj8psl85b49m5fn2wrnsy13-gnumake-4.3/bin:/nix/store/h3dwyhxyswzr8vkdchiqzdf7s8rlc4if-bash-5.1-p16/bin:/nix/store/1yisj2j13085smk19vp1pyfm8zsvqnhm-patch-2.7.6/bin:/nix/store/s911r4z16515wddqhalaizzr6pnynp66-xz-5.2.5-bin/bin:/nix/store/sgqd0ajghcv2axfl1lad0b1alyavp0dc-prybar-elisp-0.0.0-67f7a00/bin:/nix/store/p3hsvljpgs68jqwar41lc0jqhjj734lf-prybar-lua-0.0.0-67f7a00/bin:/nix/store/qzxs2gybds3s9kb1vkaflpgm2nwr85fh-prybar-python3-0.0.0-67f7a00/bin:/nix/store/km94z9mxp8w4m8gxxp5mbfpdf3nkfvd8-prybar-sqlite-0.0.0-67f7a00/bin:/nix/store/2pnc7b76asw0z59c4l6h6qy8arwqrii1-prybar-tcl-0.0.0-67f7a00/bin:/nix/store/hpbvrlwd5viqmvcaisb3x0118i913a9n-stderred-0.1.0/bin:/nix/store/g0nbhxqkc1whlkijq74ix65llwr453hj-upm-0.0.0-872ae29/bin:/nix/store/wq8z51v69jvgg2l67sbkxrpqk59n71zc-pid1/bin:/nix/store/22jj08nss8zvbgk52ikj09ssg6rw84rv-silver-searcher-2.2.0/bin:/nix/store/d3whkb9c3znnicbj5m6g5qwa7ia60z8i-bash/bin:/nix/store/176gh50y24c0lx2bnnmsvf9wazb73php-coreutils-9.0/bin:/nix/store/zaamc32wijqka1mg8w2gr1f6bgvs7yyz-vscode-cpptools-dap-1.3.1/bin:/nix/store/ann2w0blx5vrc8mw1hwnvb37gry6ci9a-replit-python-dap-wrapper-1.0.0/bin:/nix/store/gvzyha79wkr1xazax4fd9nnbj8yp9rv6-node-dap/bin:/nix/store/lyzn4qly8k878lgfy1b399w58q4khys2-fluxbox/bin:/nix/store/29fdcv1yhlll61ml8a31qdkrbprxd7gs-prybar-nodejs-0.0.0-67f7a00/bin:/nix/store/mav4251if1ahjq5vkpwycyyvnmy459c4-pulseaudio-14.2/bin:/nix/store/2py1rvdx7y7fbi0yffw7dq2bacd15605-rfbproxy-0.0.0-b81eb2f/bin:/nix/store/xwl0wqr3g68mx2b60qja3kn865gf45x5-toml-editor-0.0.0-5aba775/bin:/nix/store/bfmyvk668bl0n294qancg8sg5x42p9vx-nix-editor-0.0.0-8e65b7f/bin:/nix/store/0b2bvviijkvq2nvm04dbq3lwlq7h742m-tigervnc-1.12.0/bin:/nix/store/7v07bmyfjq0jdnx6xwxlib05na8kksdf-xwininfo-1.1.4/bin:/nix/store/pv89r9i1d8ajin2vp7qfs63nakg7s17k-replbox/bin:/nix/store/4522jkjzj2nlx2z67325aylg6ngvvg2h-curl-7.80.0-bin/bin:/nix/store/sdpqvnmahizaxbs3nnzmgfgyqsdxb1bw-gnutar-1.34/bin:/nix/store/hisqvx32cd57apbpcsnkpx6k3549wql1-libglvnd-1.4.0/bin:/nix/store/pb6sp9j9bv7s3bk1biqq05w73f40gpg8-ripgrep-13.0.0/bin:/home/runner/.nix-profile/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@middlewares%2ferrorHandler: Not found
+  Error: https://registry.yarnpkg.com/@utils%2fApiError: Not found
       at Request.params.callback [as _callback] (/nix/store/9avsx67q4w8dwgfifm92g0lrv7yw9jp9-yarn-1.22.18/libexec/yarn/lib/cli.js:66138:18)
       at Request.self.callback (/nix/store/9avsx67q4w8dwgfifm92g0lrv7yw9jp9-yarn-1.22.18/libexec/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:513:28)
@@ -45,6 +45,7 @@ npm manifest:
       "express": "^4.18.2",
       "helmet": "^6.0.1",
       "hpp": "^0.2.3",
+      "joi": "^17.7.0",
       "module-alias": "^2.2.2",
       "mongoose": "^6.8.0",
       "morgan": "^1.10.0"
@@ -800,6 +801,35 @@ Lockfile:
       "@aws-sdk/util-buffer-from" "3.208.0"
       tslib "^2.3.1"
   
+  "@hapi/hoek@^9.0.0":
+    version "9.3.0"
+    resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
+    integrity sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==
+  
+  "@hapi/topo@^5.0.0":
+    version "5.1.0"
+    resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-5.1.0.tgz#dc448e332c6c6e37a4dc02fd84ba8d44b9afb012"
+    integrity sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==
+    dependencies:
+      "@hapi/hoek" "^9.0.0"
+  
+  "@sideway/address@^4.1.3":
+    version "4.1.4"
+    resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.4.tgz#03dccebc6ea47fdc226f7d3d1ad512955d4783f0"
+    integrity sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw==
+    dependencies:
+      "@hapi/hoek" "^9.0.0"
+  
+  "@sideway/formula@^3.0.0":
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/@sideway/formula/-/formula-3.0.0.tgz#fe158aee32e6bd5de85044be615bc08478a0a13c"
+    integrity sha512-vHe7wZ4NOXVfkoRb8T5otiENVlT7a3IAiw7H5M2+GO+9CDgcVUUsX1zalAztCmwyOr2RUTGJdgB+ZvSVqmdHmg==
+  
+  "@sideway/pinpoint@^2.0.0":
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
+    integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
+  
   "@types/node@*":
     version "18.11.12"
     resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.12.tgz#89e7f8aa8c88abf432f9bd594888144d7dba10aa"
@@ -1234,6 +1264,17 @@ Lockfile:
     version "7.0.0"
     resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
     integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
+  
+  joi@^17.7.0:
+    version "17.7.0"
+    resolved "https://registry.yarnpkg.com/joi/-/joi-17.7.0.tgz#591a33b1fe1aca2bc27f290bcad9b9c1c570a6b3"
+    integrity sha512-1/ugc8djfn93rTE3WRKdCzGGt/EtiYKxITMO4Wiv6q5JL1gl9ePt4kBsl1S499nbosspfctIQTpYIhSmHA3WAg==
+    dependencies:
+      "@hapi/hoek" "^9.0.0"
+      "@hapi/topo" "^5.0.0"
+      "@sideway/address" "^4.1.3"
+      "@sideway/formula" "^3.0.0"
+      "@sideway/pinpoint" "^2.0.0"
   
   kareem@2.5.0:
     version "2.5.0"

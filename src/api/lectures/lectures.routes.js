@@ -61,4 +61,13 @@ router.patch(
     })
 );
 
+// Delete lecture
+router.delete(
+    "/:id",
+    asyncErrorHandler(async (req, res, next) => {
+        const { result } = await services.delete(req.params.id);
+        return res.status(204).json({ result });
+    })
+);
+
 module.exports = router;

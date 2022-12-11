@@ -44,3 +44,8 @@ exports.updateLectureMaterial = async (lectureId, materialId, data) => {
     );
     return newData;
 };
+
+exports.deleteLecture = async (id) => {
+	const result = await LectureModel.findByIdAndDelete(id);
+	return result;
+}
