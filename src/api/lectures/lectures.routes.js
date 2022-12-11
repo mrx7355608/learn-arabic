@@ -2,15 +2,21 @@ const express = require("express");
 const asyncErrorHandler = require("express-async-handler");
 const lectureDataValidator = require("@middlewares/lectureDataValidator");
 const LectureServices = require("./lectures.services");
+const { updateLecture } = require("./lectures.data");
 
 const router = express.Router();
 const services = new LectureServices();
 
-// TODO: add lectures endpoint routes
-router.get("/", async (req, res, next) => {
-    const { results, data } = await services.fetchData();
-    return res.status(200).json({ results, data });
-});
+// Get all lectures
+router.get(
+    "/",
+    asyncErrorHandler(async (req, res, next) => {
+        const { results, data } = await services.fetchData();
+        return res.status(200).json({ results, data });
+    })
+);
+
+// Get one lecture with id
 router.get(
     "/:id",
     asyncErrorHandler(async (req, res, next) => {
@@ -18,9 +24,41 @@ router.get(
         return res.status(200).json({ lecture });
     })
 );
-router.post("/create", lectureDataValidator, async (req, res, next) => {
-    const { newLecture } = await services.create(req.body);
-    return res.status(201).json({ newLecture });
-});
+
+// Create lecture
+router.post(
+    "/create",
+    lectureDataValidator,
+    asyncErrorHandler(async (req, res, next) => {
+        const { newLecture } = await services.create(req.body);
+        return res.status(201).json({ newLecture });
+    })
+);
+
+// Update lecture
+// TODO: Validate data
+router.patch(
+    "/:id",
+    asyncErrorHandler(async (req, res, next) => {
+        const { newData } = await services.update(req.params.id, req.body);
+        return res.status(200).json({ updated: newData });
+    })
+);
+
+// Update class material
+router.patch(
+    "/:id/materials/:materialId",
+    asyncErrorHandler(async (req, res, next) => {
+        const lectureId = req.params.id;
+        const materialId = req.params.materialId;
+        const data = req.body;
+        const { newData } = await services.updateMaterial(
+            lectureId,
+            materialId,
+            data
+        );
+        return res.status(200).json({ updated: newData });
+    })
+);
 
 module.exports = router;

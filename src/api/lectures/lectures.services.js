@@ -3,6 +3,8 @@ const {
     getOneLecture,
     getLectureById,
     createLecture,
+    updateLecture,
+    updateLectureMaterial,
 } = require("./lectures.data");
 const ApiError = require("@utils/ApiError");
 
@@ -27,6 +29,20 @@ class LectureServices {
     async create(data) {
         const newLecture = await createLecture(data);
         return { newLecture };
+    }
+    async update(id, data) {
+        await this.fetchById(id);
+        const newData = await updateLecture(id, data);
+        return { newData };
+    }
+    async updateMaterial(lectureId, materialId, data) {
+        await this.fetchById(lectureId);
+        const newData = await updateLectureMaterial(
+            lectureId,
+            materialId,
+            data
+        );
+        return { newData };
     }
 }
 
