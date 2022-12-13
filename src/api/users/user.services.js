@@ -4,10 +4,16 @@ const {
     createUser,
     updateUser,
     deleteUser,
+    getCompleteUserDetails,
 } = require("./user.data");
 const ApiError = require("@utils/ApiError");
 
 class UserServices {
+    async fetchCompleteUser(filter) {
+        const user = await getCompleteUserDetails(filter);
+        return { user };
+    }
+
     async fetch(id) {
         const user = await getUser(id);
         if (user == null) throw new ApiError("User not found", 404);

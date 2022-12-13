@@ -5,6 +5,14 @@ exports.getUser = async (id) => {
     return user;
 };
 
+exports.getCompleteUserDetails = async (filter) => {
+    const user = await UserModel.findOne(
+        filter,
+        "+email +password +isEmailVerified +isAccountActive"
+    );
+    return user;
+};
+
 exports.getUserByEmail = async (email) => {
     const user = await UserModel.findOne({ email });
     return user;

@@ -8,7 +8,9 @@ module.exports = (passport) => {
             { usernameField: "email" },
             async (email, password, callback) => {
                 try {
-                    const user = await userServices.fetchByEmail(email);
+                    const user = await userServices.fetchCompleteUser({
+                        email,
+                    });
 
                     // User exists
                     if (user == null) return callback(null, false);
