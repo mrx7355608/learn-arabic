@@ -9,8 +9,12 @@ const pointSubSchema = joi.string().messages({
 
 const materialValidationSchema = joi
     .object({
-        topic: joi.string().required(),
-        studyFrom: joi.string().required(),
+        topic: joi.string().required().messages({
+            "any.required": "Topic is required!",
+        }),
+        studyFrom: joi.string().required().messages({
+            "any.required": "Add a refrence to study this topic from",
+        }),
     })
     .required()
     .messages({
