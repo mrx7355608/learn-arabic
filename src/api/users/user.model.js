@@ -45,3 +45,5 @@ userSchema.pre("save", async function (next) {
 // Assign random profile pictures
 
 const UserModel = mongoose.model("User", userSchema);
+
+module.exports = UserModel;
