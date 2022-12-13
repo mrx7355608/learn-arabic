@@ -8,11 +8,16 @@ const {
     deleteLecture,
 } = require("./lectures.data");
 const ApiError = require("@utils/ApiError");
+const ReqQueryHandler = require("@utils/ReqQueryHandler");
 
 class LectureServices {
     // get all lectures
-    async fetchData() {
-        const data = await getLectures();
+    async fetchData(queryStringObj) {
+        // Returns req.query object's data in desired format
+        const queryHandler = new ReqQueryHandler(queryStringObj);
+        const queryData = queryHandler.filter().populate().getData();
+
+        const data = await getLectures(queryData);
         const results = data.length;
         return { data, results };
     }

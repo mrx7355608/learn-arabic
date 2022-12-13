@@ -1,10 +1,18 @@
 const LectureModel = require("./lectures.model");
 
-exports.getLectures = async () => {
-    // TODO: Add filtering, sorting and pagination
-    // sorting => oldest first/ newest first
-    // filtering => title, topic
-    const data = await LectureModel.find({});
+exports.getLectures = async ({ filter, sortBy, skipDocs, limit }) => {
+    let dbQuery = LectureModel.find(filter);
+    if (filter.topics) {
+        dbQuery = dbQuery.where({ topics: { $all: filter.topics } });
+    }
+    if (filter.title) {
+        const titleRegex = new RegExp(filter.title, "ig");
+        dbQuery = dbQuery.where({
+            title: { $regex: titleRegex },
+        });
+    }
+
+    const data = await dbQuery.sort(sortBy).skip(skipDocs).limit(limit);
     return data;
 };
 
