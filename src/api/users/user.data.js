@@ -19,7 +19,7 @@ exports.getUserByEmail = async (email) => {
 };
 
 exports.createUser = async (userData) => {
-    const newUser = await UserModel.create({ ...userData, role: "user" });
+    const newUser = await UserModel.create(userData);
     return newUser;
 };
 
