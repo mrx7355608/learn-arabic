@@ -8,5 +8,8 @@ const connectDb = (dbUrl) => {
         console.log("Error in db connection")
     );
 };
+const disconnectFromDb = () => {
+    mongoose.disconnect(() => console.log("Disconnected from DB"));
+};
 
-module.exports = connectDb;
+module.exports = { connectDb, disconnectFromDb };
