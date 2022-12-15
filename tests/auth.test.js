@@ -15,19 +15,49 @@ describe("Authentication tests", () => {
 
     describe("Login endpoint", () => {
         const url = "/api/v1/auth/login";
-        // non-registered credentials
+
         // valid/registered credentials
-        // validation tests
-        it("responds with bad error when invalid data is given", async () => {
+        it("responds with 200 and a cookie when provided correct credentials", async () => {
             const response = await agent
                 .post(url)
                 .send({
                     email: config.TEST_USER_EMAIL,
                     password: config.TEST_USER_PASSWORD,
                 })
+                .expect(200);
+
+            const cookies = response.headers["set-cookie"][0];
+            expect(cookies instanceof String);
+            expect(response.body).toStrictEqual({
+                ok: true,
+            });
+        });
+
+        // non-registered credentials
+        it("responds with bad error when an un-registered email is given", async () => {
+            const response = await agent
+                .post(url)
+                .send({
+                    email: "some_email@gmail.com",
+                    password: "some_password123",
+                })
                 .expect(400);
             expect(response.body).toEqual({
-                error: jest.any(String),
+                error: expect.any(String),
+            });
+        });
+
+        // validation tests
+        it("responds with bad error when invalid data is given", async () => {
+            const response = await agent
+                .post(url)
+                .send({
+                    email: null,
+                    password: config.TEST_USER_PASSWORD,
+                })
+                .expect(400);
+            expect(response.body).toEqual({
+                error: expect.any(String),
             });
         });
         // TODO: prevent un-verified emails from logging in
