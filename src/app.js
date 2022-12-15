@@ -13,6 +13,8 @@ const passportSetup = require("@utils/passportSetup");
 
 // Routers
 const lectureRouter = require("@api/lectures/lectures.routes");
+const authRouter = require("@api/auth/auth.routes");
+const userRouter = require("@api/users/user.routes");
 
 const app = express();
 
@@ -48,6 +50,8 @@ passportSetup(passport);
 
 // Routes setup
 app.use("/api/v1/lectures", lectureRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
 // Catch 404
 app.use((req, res, next) => {
