@@ -1,4 +1,6 @@
 module.exports = {
+    testEnvironment: "node",
+    verbose: true,
     moduleNameMapper: {
         "^@config(.*)$": "<rootDir>/src/config/$1",
         "^@middlewares(.*)$": "<rootDir>/src/middlewares/$1",
