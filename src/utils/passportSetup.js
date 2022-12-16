@@ -13,11 +13,19 @@ module.exports = (passport) => {
                     });
 
                     // User exists
-                    if (user == null) return callback(null, false);
+                    if (user == null)
+                        return callback(null, false, {
+                            name: "UserNotFound",
+                            message: "No user found with this email",
+                        });
 
                     // Validate password
                     const validPassword = await user.validatePassword(password);
-                    if (!validPassword) return callback(null, false);
+                    if (!validPassword)
+                        return callback(null, false, {
+                            name: "InvalidCredentials",
+                            message: "Incorrect email or password",
+                        });
 
                     return callback(null, user);
                 } catch (err) {
