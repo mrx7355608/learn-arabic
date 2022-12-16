@@ -13,6 +13,41 @@ describe("Authentication tests", () => {
     });
     afterAll(() => mongoose.disconnect());
 
+    describe("Register endpoint", () => {
+        const registerEndpoint = "/api/v1/auth/register";
+        const invalidCredentials = {
+            fname: "John",
+            lname: "Wick",
+            email: "wickiii@yahoo.com",
+            password: "some_password_123",
+            confirmPassword: "some_non_matching_password123",
+        };
+
+        // Validation test
+        it("responds with 400 status when provided data fails a validation check", async () => {
+            await agent
+                .post(registerEndpoint)
+                .send(invalidCredentials)
+                .expect(400, {
+                    error: "Passwords do not match",
+                });
+        });
+
+        // User already exists
+        it("responds with 400 status when a registered email is provided", async () => {
+            const response = await agent
+                .post(registerEndpoint)
+                .send({
+                    ...invalidCredentials,
+                    email: config.TEST_USER_EMAIL,
+                    password: "1234567890",
+                    confirmPassword: "1234567890",
+                })
+                .expect(400, {
+                    error: "This email is already registered, consider logging in",
+                });
+        });
+    });
     describe("Login endpoint", () => {
         const url = "/api/v1/auth/login";
 
@@ -62,5 +97,4 @@ describe("Authentication tests", () => {
         });
         // TODO: prevent un-verified emails from logging in
     });
-    describe("Register endpoint", () => {});
 });

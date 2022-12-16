@@ -18,6 +18,11 @@ exports.getUserByEmail = async (email) => {
     return user;
 };
 
+exports.userExists = async (filter) => {
+    const user = await UserModel.findOne(filter);
+    return user ? true : false;
+};
+
 exports.createUser = async (userData) => {
     const newUser = await UserModel.create(userData);
     return newUser;
