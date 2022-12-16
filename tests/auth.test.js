@@ -13,6 +13,13 @@ describe("Authentication tests", () => {
     });
     afterAll(() => mongoose.disconnect());
 
+    describe("Protected routes", () => {
+        it("prevents not-logged in users from accessing a protected route", async () => {
+            await agent.get("/api/v1/user/").expect(401, {
+                error: "Un-authorized",
+            });
+        });
+    });
     describe("Register endpoint", () => {
         const registerEndpoint = "/api/v1/auth/register";
         const invalidCredentials = {
@@ -96,5 +103,12 @@ describe("Authentication tests", () => {
             });
         });
         // TODO: prevent un-verified emails from logging in
+    });
+    describe("Guest routes", () => {
+        it("prevents logged in users from accessing a guest route e.g: /login /register", async () => {
+            await agent.post("/api/v1/auth/login").expect(400, {
+                error: "Not allowed",
+            });
+        });
     });
 });
