@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncErrorHandler = require("express-async-handler");
 const AuthServices = require("./auth.services");
-const passport = require("passport");
+const loginWithPassport = require("@utils/loginWithPassport");
 // Middlewares
 const registerValidator = require("@middlewares/registerValidator");
 const loginValidator = require("@middlewares/loginValidator");
@@ -10,21 +10,21 @@ const {
     forwardAuthenticated,
 } = require("@middlewares/auth");
 
+// Auth router
 const router = express.Router();
 const authServices = new AuthServices();
 
+// 1) LOGIN
 router.post(
     "/login",
     forwardAuthenticated,
     loginValidator,
-    passport.authenticate("local", {
-        failWithError: true, // Error handled by Express Error Handler
-    }),
     (req, res, next) => {
-        res.status(200).json({ ok: true });
+        loginWithPassport(req, res, next);
     }
 );
 
+// 2) REGISTER
 router.post(
     "/register",
     forwardAuthenticated,
@@ -35,6 +35,7 @@ router.post(
     })
 );
 
+// 3) LOGOUT
 router.post("/logout", ensureAuthenticated, (req, res, next) => {
     req.logout((err) => {
         if (err) return next(err);
