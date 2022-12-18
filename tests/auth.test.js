@@ -14,7 +14,7 @@ describe("Authentication tests", () => {
     afterAll(() => mongoose.disconnect());
 
     describe("Protected routes", () => {
-        it("prevents not-logged in users from accessing a protected route", async () => {
+        it("prevents un-authorized users from accessing a protected route", async () => {
             await agent.get("/api/v1/user/").expect(401, {
                 error: "Un-authorized",
             });
@@ -31,7 +31,7 @@ describe("Authentication tests", () => {
         };
 
         // Validation test
-        it("responds with 400 status when provided data fails a validation check", async () => {
+        it("responds with an validation error when invalid data is given", async () => {
             await agent
                 .post(registerEndpoint)
                 .send(invalidCredentials)
@@ -41,7 +41,7 @@ describe("Authentication tests", () => {
         });
 
         // User already exists
-        it("responds with 400 status when a registered email is provided", async () => {
+        it("returns 400 when registered email is provided", async () => {
             const response = await agent
                 .post(registerEndpoint)
                 .send({
@@ -59,7 +59,7 @@ describe("Authentication tests", () => {
         const url = "/api/v1/auth/login";
 
         // valid/registered credentials
-        it("responds with 200 and a cookie when provided correct credentials", async () => {
+        it("responds with 200 and a cookie on a successfull login", async () => {
             const response = await agent
                 .post(url)
                 .send({
@@ -71,12 +71,12 @@ describe("Authentication tests", () => {
             const cookies = response.headers["set-cookie"][0];
             expect(cookies instanceof String);
             expect(response.body).toStrictEqual({
-                ok: true,
+                login: true,
             });
         });
 
         // non-registered credentials
-        it("responds with bad error when an un-registered email is given", async () => {
+        it("responds with bad error when an non-registered email is given", async () => {
             const response = await agent
                 .post(url)
                 .send({
@@ -115,6 +115,26 @@ describe("Authentication tests", () => {
                 .expect(400, {
                     error: "Not allowed",
                 });
+        });
+    });
+    describe("Email verification", () => {
+        // Invalid token
+        it("returns 400 when invalid email-verification token is passed", async () => {
+            const url = "/api/v1/auth/verify-email?token=invalid_token123.3123";
+            const response = await agent.get(url).expect(400);
+            expect(response.body).toEqual({
+                error: expect.any(String),
+            });
+        });
+
+        // Expired token
+        it("returns error when an expired email-verification token is provided", async () => {
+            const url =
+                "/api/v1/auth/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOWRkZDhhOWNiNDdiZWQ2Y2YzN2YzOCIsImlhdCI6MTY3MTM3Njc4OCwiZXhwIjoxNjcxMzc3MDg4fQ.G_2W3A7MdPzm19mXe5M-SmwVQ_EqwZqqWsJVTH4Ln3M";
+            const response = await agent.get(url).expect(400);
+            expect(response.body).toEqual({
+                error: "Token has expired, request again",
+            });
         });
     });
 });
