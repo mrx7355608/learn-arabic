@@ -50,7 +50,7 @@ const createEmailVerificationMessage = (recipient_email, token) => {
                     padding: 9px 15px;
                     text-decoration: none;
                     "
-                    href="http://localhost:8000/verify-email?token=${token}" >
+                    href="http://localhost:8000/api/v1/auth/verify-email?token=${token}" >
                     Verify Email
                 </a>
             </div>
