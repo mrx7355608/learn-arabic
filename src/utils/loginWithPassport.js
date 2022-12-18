@@ -1,4 +1,5 @@
 const passport = require("passport");
+const ApiError = require("@utils/ApiError");
 
 module.exports = (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
