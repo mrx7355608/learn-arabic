@@ -51,7 +51,7 @@ describe("Authentication tests", () => {
                     confirmPassword: "1234567890",
                 })
                 .expect(400, {
-                    error: "This email is already registered, consider logging in",
+                    error: "This email is already registered",
                 });
         });
     });
