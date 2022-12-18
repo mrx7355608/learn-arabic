@@ -27,12 +27,6 @@ const userSchema = new mongoose.Schema({
         default: false,
         select: false,
     },
-    // Used to check that if account is deleted or not
-    isAccountActive: {
-        type: Boolean,
-        default: true,
-        select: false,
-    },
 });
 
 // Hash password
