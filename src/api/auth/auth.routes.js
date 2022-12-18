@@ -1,8 +1,8 @@
 const express = require("express");
-const passport = require("passport");
 const asyncErrorHandler = require("express-async-handler");
 const AuthServices = require("./auth.services");
-const ApiError = require("@utils/ApiError");
+const UserDb = require("@api/users/user.data");
+const passport = require("passport");
 const {
     ensureAuthenticated,
     forwardAuthenticated,
@@ -10,48 +10,52 @@ const {
     loginDataValidator,
 } = require("@middlewares/auth");
 
+const userDb = new UserDb();
+const authServices = new AuthServices(userDb);
+
 // Auth router
 const router = express.Router();
-const authServices = new AuthServices();
 
-// 1) REGISTER
+// Register
 router.post(
     "/register",
     forwardAuthenticated,
     registerDataValidator,
     asyncErrorHandler(async (req, res, next) => {
         await authServices.register(req.body);
-        // TODO: send verification email
-        res.status(200).json({ ok: true });
+        const message = "A verification email has been to your email.";
+        res.status(200).json(message);
     })
 );
 
-// 2) LOGIN
+// Login
 router.post(
     "/login",
     forwardAuthenticated,
     loginDataValidator,
     (req, res, next) => {
+        // Login with passportjs
         passport.authenticate("local", (err, user, info) => {
             if (err) return next(err);
             if (info) return next(new ApiError(info.message, 400));
+
             req.login(user, (err) => {
                 if (err) return next(err);
-                return res.status(200).json({ ok: true });
+                return res.status(200).json({ login: true });
             });
         })(req, res, next);
     }
 );
 
-// 3) LOGOUT
+// Logout
 router.post("/logout", ensureAuthenticated, (req, res, next) => {
     req.logout((err) => {
         if (err) return next(err);
-        return res.status(200).json({ ok: true });
+        return res.status(200).json({ logout: true });
     });
 });
 
-// 4) VERIFY EMAIL
+// Verify email
 router.get(
     "/verify-email",
     asyncErrorHandler(async (req, res, next) => {

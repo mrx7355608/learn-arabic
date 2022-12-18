@@ -1,5 +1,7 @@
 const { Strategy } = require("passport-local");
 const { getCompleteUserDetails, getUser } = require("@api/users/user.data");
+const UserDb = require("@api/users/user.data");
+const userDb = new UserDb();
 
 module.exports = (passport) => {
     passport.use(
@@ -7,7 +9,7 @@ module.exports = (passport) => {
             { usernameField: "email" },
             async (email, password, callback) => {
                 try {
-                    const user = await getCompleteUserDetails({
+                    const user = await userDb.getCompleteUserDetails({
                         email,
                     });
 
@@ -49,7 +51,7 @@ module.exports = (passport) => {
     // Deserialize
     passport.deserializeUser(async (id, done) => {
         try {
-            const user = await getUser(id);
+            const user = await userDb.getUser(id);
             done(null, user);
         } catch (err) {
             done(err, null);

@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
-const jwt = require("jsonwebtoken");
 const config = require("@config/index");
+const { createToken } = require("./tokens");
 
 class Email {
     setupTransport() {
@@ -16,9 +16,7 @@ class Email {
     }
 
     prepareEmail(recipient_email, userid) {
-        const token = jwt.sign({ id: userid }, config.TOKEN_SECRET, {
-            expiresIn: "5m",
-        });
+        const token = createToken(userid);
         const message = createEmailVerificationMessage(recipient_email, token);
         return message;
     }
@@ -37,7 +35,8 @@ const createEmailVerificationMessage = (recipient_email, token) => {
         to: recipient_email,
         subject: "Email Verification",
         html: `
-                <p>Thank you for signing up</p>
+            <div style="padding: 10px" >
+                <p style="font-size:20px" >Thank you for signing up</p>
                 <p>Please verify your email below</p>
                 <a 
                     style="
@@ -48,11 +47,13 @@ const createEmailVerificationMessage = (recipient_email, token) => {
                     border: none;
                     font-weight: 500;
                     font-size: 13px;
-                    padding: 15px 9px;
+                    padding: 9px 15px;
+                    text-decoration: none;
                     "
                     href="http://localhost:8000/verify-email?token=${token}" >
-                    Verfify Email
+                    Verify Email
                 </a>
+            </div>
     `,
     };
 };

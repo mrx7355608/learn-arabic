@@ -1,57 +1,55 @@
 const UserModel = require("./user.model");
 
-exports.getUser = async (id) => {
-    const user = await UserModel.findById(id);
-    return user;
-};
+class UserDb {
+    async getUser(id) {
+        const user = await UserModel.findById(id);
+        return user;
+    }
 
-exports.getCompleteUserDetails = async (filter) => {
-    const user = await UserModel.findOne(
-        filter,
-        "+email +password +isEmailVerified +isAccountActive"
-    );
-    return user;
-};
+    async getCompleteUserDetails(filter) {
+        const user = await UserModel.findOne(
+            filter,
+            "+email +password +isEmailVerified +isAccountActive"
+        );
+        return user;
+    }
 
-exports.getUserByEmail = async (email) => {
-    const user = await UserModel.findOne({ email });
-    return user;
-};
+    async getUserByEmail(email) {
+        const user = await UserModel.findOne({ email });
+        return user;
+    }
 
-exports.userExists = async (filter) => {
-    const user = await UserModel.findOne(filter);
-    return user ? true : false;
-};
+    async createUser(userData) {
+        const newUser = await UserModel.create(userData);
+        return newUser;
+    }
 
-exports.createUser = async (userData) => {
-    const newUser = await UserModel.create(userData);
-    return newUser;
-};
+    async updateUser(id, data) {
+        const updatedUserData = await UserModel.findByIdAndUpdate(id, data, {
+            new: true,
+            $projection: {
+                email: false,
+                password: false,
+                isEmailVerified: false,
+                isAccountActive: false,
+            },
+        });
+        return updatedUserData;
+    }
 
-exports.updateUser = async (id, data) => {
-    const updatedUserData = await UserModel.findByIdAndUpdate(id, data, {
-        new: true,
-        $projection: {
-            email: false,
-            password: false,
-            isEmailVerified: false,
-            isAccountActive: false,
-        },
-    });
-    return updatedUserData;
-};
+    async deleteUser(id) {
+        const deletedUser = await UserModel.findByIdAndDelete(id);
+        return deletedUser;
+    }
 
-exports.deleteUser = async (id) => {
-    const deletedUser = await UserModel.findByIdAndDelete(id);
-    return deletedUser;
-};
+    async verifyUserEmail(id) {
+        const doc = await UserModel.findByIdAndUpdate(id, {
+            isEmailVerified: true,
+        });
+        return doc;
+    }
+    // exports.resetPassword = async (id) => {};
+    // exports.forgotPassword = async (id) => {};
+}
 
-// exports.verifyEmail = async (id) => {
-//     // TODO: return true or false based on the update success
-//     const verified = await UserModel.findByIdAndUpdate(id, {
-//         isEmailVerified: true,
-//     });
-//     return verified;
-// };
-// exports.resetPassword = async (id) => {};
-// exports.forgotPassword = async (id) => {};
+module.exports = UserDb;
