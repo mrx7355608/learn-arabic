@@ -106,9 +106,15 @@ describe("Authentication tests", () => {
     });
     describe("Guest routes", () => {
         it("prevents logged in users from accessing a guest route e.g: /login /register", async () => {
-            await agent.post("/api/v1/auth/login").expect(400, {
-                error: "Not allowed",
-            });
+            await agent
+                .post("/api/v1/auth/login")
+                .send({
+                    email: config.TEST_USER_EMAIL,
+                    password: config.TEST_USER_PASSWORD,
+                })
+                .expect(400, {
+                    error: "Not allowed",
+                });
         });
     });
 });
