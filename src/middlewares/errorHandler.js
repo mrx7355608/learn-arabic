@@ -14,10 +14,10 @@ module.exports = (err, req, res, next) => {
     if (err.name === "AuthenticationError")
         return res.status(400).json({ error: err.message });
     if (err.name === "JsonWebTokenError")
-        return res.status(401).json({ error: "Invalid token" });
+        return res.status(400).json({ error: "Invalid token" });
     if (err.name === "TokenExpiredError")
         return res
-            .status(401)
+            .status(400)
             .json({ error: "Token has expired, request again" });
 
     return res.status(code).json({ error: err.message });
