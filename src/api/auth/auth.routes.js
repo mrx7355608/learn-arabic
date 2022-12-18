@@ -3,11 +3,11 @@ const asyncErrorHandler = require("express-async-handler");
 const AuthServices = require("./auth.services");
 const loginWithPassport = require("@utils/loginWithPassport");
 // Middlewares
-const registerValidator = require("@middlewares/registerValidator");
-const loginValidator = require("@middlewares/loginValidator");
 const {
     ensureAuthenticated,
     forwardAuthenticated,
+    registerDataValidator,
+    loginDataValidator,
 } = require("@middlewares/auth");
 
 // Auth router
@@ -18,7 +18,7 @@ const authServices = new AuthServices();
 router.post(
     "/login",
     forwardAuthenticated,
-    loginValidator,
+    loginDataValidator,
     (req, res, next) => {
         loginWithPassport(req, res, next);
     }
@@ -28,9 +28,10 @@ router.post(
 router.post(
     "/register",
     forwardAuthenticated,
-    registerValidator,
+    registerDataValidator,
     asyncErrorHandler(async (req, res, next) => {
         await authServices.register(req.body);
+        // TODO: send verification email
         res.status(200).json({ ok: true });
     })
 );
