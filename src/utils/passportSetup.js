@@ -1,6 +1,5 @@
 const { Strategy } = require("passport-local");
-const UserServices = require("@api/users/user.services");
-const userServices = new UserServices();
+const { getCompleteUserDetails, getUser } = require("@api/users/user.data");
 
 module.exports = (passport) => {
     passport.use(
@@ -8,24 +7,31 @@ module.exports = (passport) => {
             { usernameField: "email" },
             async (email, password, callback) => {
                 try {
-                    const { user } = await userServices.fetchCompleteUser({
+                    const user = await getCompleteUserDetails({
                         email,
                     });
 
                     // User exists
-                    if (user == null)
+                    if (user == null) {
                         return callback(null, false, {
-                            name: "UserNotFound",
                             message: "No user found with this email",
                         });
+                    }
+
+                    // Verified email
+                    if (user.isEmailVerified == false) {
+                        return callback(null, false, {
+                            message: "Please verify your email to login",
+                        });
+                    }
 
                     // Validate password
                     const validPassword = await user.validatePassword(password);
-                    if (!validPassword)
+                    if (!validPassword) {
                         return callback(null, false, {
-                            name: "InvalidCredentials",
                             message: "Incorrect email or password",
                         });
+                    }
 
                     return callback(null, user);
                 } catch (err) {
@@ -43,7 +49,7 @@ module.exports = (passport) => {
     // Deserialize
     passport.deserializeUser(async (id, done) => {
         try {
-            const user = await userServices.fetch(id);
+            const user = await getUser(id);
             done(null, user);
         } catch (err) {
             done(err, null);

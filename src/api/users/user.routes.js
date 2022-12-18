@@ -1,5 +1,4 @@
 const express = require("express");
-const asyncErrorHandler = require("express-async-handler");
 const { ensureAuthenticated } = require("@middlewares/auth");
 
 const userRouter = express.Router();
