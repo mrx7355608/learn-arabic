@@ -7,15 +7,19 @@ class AuthServices {
     }
 
     async register(data) {
+        // Check if user is already registered
         const user = await this.userDb.getUserByEmail(data.email);
         if (user) {
             throw new ApiError("This email is already registered", 400);
         }
+
         // Create a new user
         const newUser = await this.userDb.createUser(data);
+
         // Send verification email
         const emailer = new Email();
         await emailer.send(newUser.email, newUser._id);
+
         // return response
         return { newUser };
     }
@@ -23,8 +27,10 @@ class AuthServices {
     async verifyEmail(token) {
         // check if token exists
         if (!token) throw new ApiError("Verification token is missing", 400);
+
         // verify token
         const payload = verifyToken(token);
+
         // check if a user exists
         const user = await this.userDb.getUser(payload.id);
         if (!user) throw new ApiError("Email not registered!", 400);
