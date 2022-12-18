@@ -11,10 +11,12 @@ class AuthServices {
         if (user) {
             throw new ApiError("This email is already registered", 400);
         }
+        // Create a new user
+        const newUser = await this.userDb.createUser(data);
         // Send verification email
         const emailer = new Email();
         await emailer.send(newUser.email, newUser._id);
-        const newUser = await this.userDb.createUser(data);
+        // return response
         return { newUser };
     }
 
@@ -28,6 +30,13 @@ class AuthServices {
         if (!user) throw new ApiError("Email not registered!", 400);
 
         await this.userDb.verifyUserEmail(payload.id);
+    }
+
+    async resendVerificationEmail(email) {
+        const user = await this.userDb.getCompleteUserDetails({ email });
+        if (!user) throw new ApiError("User not found", 400);
+        const emailer = new Email();
+        await emailer.send(user.email, user._id);
     }
 }
 

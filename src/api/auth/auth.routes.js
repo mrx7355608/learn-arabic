@@ -1,3 +1,4 @@
+// TODO: Add rate limiting
 const express = require("express");
 const asyncErrorHandler = require("express-async-handler");
 const AuthServices = require("./auth.services");
@@ -62,6 +63,18 @@ router.get(
         const { token } = req.query;
         await authServices.verifyEmail(token);
         return res.status(200).json({ verified: true });
+    })
+);
+
+// Resend verification email
+router.post(
+    "/resend-verification-email",
+    asyncErrorHandler(async (req, res, next) => {
+        const email = req.body.email;
+        await authServices.resendVerificationEmail(email);
+        return res.status(200).json({
+            message: `A verification email has been sent successfully to ${email}`,
+        });
     })
 );
 
