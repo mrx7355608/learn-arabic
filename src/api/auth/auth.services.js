@@ -1,6 +1,7 @@
 const ApiError = require("@utils/ApiError");
 const Email = require("@utils/Email");
 const { verifyToken } = require("@utils/tokens");
+const { AccountVerificationEmail } = require("../../utils/Email");
 class AuthServices {
     constructor(userDb) {
         this.userDb = userDb;
@@ -17,8 +18,8 @@ class AuthServices {
         const newUser = await this.userDb.createUser(data);
 
         // Send verification email
-        const emailer = new Email();
-        await emailer.send(newUser.email, newUser._id);
+        const emailer = new AccountVerificationEmail();
+        await emailer.sendEmail(newUser.email, newUser._id);
 
         // return response
         return { newUser };
@@ -41,8 +42,8 @@ class AuthServices {
     async resendVerificationEmail(email) {
         const user = await this.userDb.getCompleteUserDetails({ email });
         if (!user) throw new ApiError("User not found", 400);
-        const emailer = new Email();
-        await emailer.send(user.email, user._id);
+        const emailer = new AccountVerificationEmail();
+        await emailer.sendEmail(user.email, user._id);
     }
 }
 
