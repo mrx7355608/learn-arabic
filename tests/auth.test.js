@@ -130,7 +130,7 @@ describe("Authentication tests", () => {
         // Expired token
         it("returns error when an expired email-verification token is provided", async () => {
             const url =
-                "/api/v1/auth/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOWRkZDhhOWNiNDdiZWQ2Y2YzN2YzOCIsImlhdCI6MTY3MTM3Njc4OCwiZXhwIjoxNjcxMzc3MDg4fQ.G_2W3A7MdPzm19mXe5M-SmwVQ_EqwZqqWsJVTH4Ln3M";
+                "/api/v1/auth/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOTg5OTg4NDY4NjNmMzNkOGYxN2U1OSIsImlhdCI6MTY3MTYwNTY3MywiZXhwIjoxNjcxNjA1OTczfQ.EugnfwmBeMRSVN0pviiTFmq4HK8VeTumokqdno1xKD8";
             const response = await agent.get(url).expect(400);
             expect(response.body).toEqual({
                 error: "Token has expired, request again",
