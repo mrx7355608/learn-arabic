@@ -9,6 +9,11 @@ module.exports = {
         throw new ApiError("Un-authorized", 401);
     },
 
+    isAdmin: (req, res, next) => {
+        if (req.user.role === "admin") return next();
+        return next(new ApiError("Only admins can access this route", 403));
+    },
+
     // Redirect / Prevent logged in user
     // from accessing login, register etc pages
     forwardAuthenticated: (req, res, next) => {
