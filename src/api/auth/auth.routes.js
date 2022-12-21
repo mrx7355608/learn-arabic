@@ -11,11 +11,9 @@ const {
     loginDataValidator,
 } = require("@middlewares/auth");
 
+const router = express.Router();
 const userDb = new UserDb();
 const authServices = new AuthServices(userDb);
-
-// Auth router
-const router = express.Router();
 
 // Register
 router.post(
@@ -25,7 +23,7 @@ router.post(
     asyncErrorHandler(async (req, res, next) => {
         await authServices.register(req.body);
         const message = "A verification email has been to your email.";
-        res.status(200).json(message);
+        res.status(200).json({ message });
     })
 );
 

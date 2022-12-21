@@ -37,7 +37,7 @@ router.post(
 // Update lecture
 // TODO: Validate data
 router.patch(
-    "/:id",
+    "/update/:id",
     asyncErrorHandler(async (req, res, next) => {
         const { newData } = await services.update(req.params.id, req.body);
         return res.status(200).json({ updated: newData });
@@ -46,7 +46,7 @@ router.patch(
 
 // Update class material
 router.patch(
-    "/:id/materials/:materialId",
+    "/update/:id/materials/:materialId",
     asyncErrorHandler(async (req, res, next) => {
         const lectureId = req.params.id;
         const materialId = req.params.materialId;
@@ -62,7 +62,7 @@ router.patch(
 
 // Delete lecture
 router.delete(
-    "/:id",
+    "/delete/:id",
     asyncErrorHandler(async (req, res, next) => {
         const { result } = await services.delete(req.params.id);
         return res.status(204).json({ result });
