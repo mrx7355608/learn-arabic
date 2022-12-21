@@ -13,6 +13,10 @@ module.exports = (err, req, res, next) => {
         return res.status(400).json({ error: err.message });
     if (err.name === "AuthenticationError")
         return res.status(400).json({ error: err.message });
+    if (err.name === "MongooseError")
+        return res
+            .status(400)
+            .json({ error: "Sorry, an un-expected error occured." });
     if (err.name === "JsonWebTokenError")
         return res.status(400).json({ error: "Invalid token" });
     if (err.name === "TokenExpiredError")
