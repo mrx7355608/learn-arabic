@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
         default: false,
         select: false,
     },
+    role: {
+        type: String,
+        default: "user",
+    },
 });
 
 // Hash password
