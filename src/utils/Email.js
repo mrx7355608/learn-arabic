@@ -102,7 +102,7 @@ class AccountVerificationEmail extends Email {
     async sendEmail(recipient_email, userid) {
         const token = createToken(userid);
         const message = this.createMessage(recipient_email, token);
-        this.send(message);
+        await this.send(message);
     }
 }
 
