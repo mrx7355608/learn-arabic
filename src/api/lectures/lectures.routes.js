@@ -2,6 +2,7 @@ const express = require("express");
 const asyncErrorHandler = require("express-async-handler");
 const lectureDataValidator = require("@middlewares/lectureDataValidator");
 const LectureServices = require("./lectures.services");
+const { isAdmin } = require("@middlewares/auth");
 
 const router = express.Router();
 const services = new LectureServices();
@@ -27,6 +28,7 @@ router.get(
 // Create lecture
 router.post(
     "/create",
+    isAdmin,
     lectureDataValidator,
     asyncErrorHandler(async (req, res, next) => {
         const { newLecture } = await services.create(req.body);
@@ -38,6 +40,7 @@ router.post(
 // TODO: Validate data
 router.patch(
     "/update/:id",
+    isAdmin,
     asyncErrorHandler(async (req, res, next) => {
         const { newData } = await services.update(req.params.id, req.body);
         return res.status(200).json({ updated: newData });
@@ -47,6 +50,7 @@ router.patch(
 // Update class material
 router.patch(
     "/update/:id/materials/:materialId",
+    isAdmin,
     asyncErrorHandler(async (req, res, next) => {
         const lectureId = req.params.id;
         const materialId = req.params.materialId;
@@ -63,6 +67,7 @@ router.patch(
 // Delete lecture
 router.delete(
     "/delete/:id",
+    isAdmin,
     asyncErrorHandler(async (req, res, next) => {
         const { result } = await services.delete(req.params.id);
         return res.status(204).json({ result });
