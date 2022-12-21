@@ -10,6 +10,7 @@ const errorHandler = require("@middlewares/errorHandler");
 const MongoDbStore = require("connect-mongodb-session")(session);
 const config = require("@config/index");
 const passportSetup = require("@utils/passportSetup");
+const mongoSanitize = require("express-mongo-sanitize");
 
 // Routers
 const lectureRouter = require("@api/lectures/lectures.routes");
@@ -25,6 +26,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(mongoSanitize());
 
 // Express session setup
 // MongoDb session store
