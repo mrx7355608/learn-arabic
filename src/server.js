@@ -1,9 +1,8 @@
-require("dotenv/config");
-require("module-alias/register");
-const http = require("http");
-const app = require("./app");
-const config = require("@config/index");
-const { connectDb } = require("@utils/dbConnection");
+import "dotenv/config";
+import http from "http";
+import app from "./app.js";
+import config from "./config/index.js";
+import { connectDb } from "./utils/dbConnection.js";
 
 const httpServer = http.createServer(app);
 const port = config.PORT || 8000;

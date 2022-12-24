@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     // General
     PORT: process.env.PORT,
     NODE_ENV: process.env.NODE_ENV,

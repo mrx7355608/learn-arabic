@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const connectDb = (dbUrl) => {
     mongoose.set("strictQuery", false);
@@ -12,4 +12,4 @@ const disconnectFromDb = () => {
     mongoose.disconnect(() => console.log("Disconnected from DB"));
 };
 
-module.exports = { connectDb, disconnectFromDb };
+export { connectDb, disconnectFromDb };

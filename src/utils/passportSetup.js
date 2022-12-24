@@ -3,7 +3,7 @@ const { getCompleteUserDetails, getUser } = require("@api/users/user.data");
 const UserDb = require("@api/users/user.data");
 const userDb = new UserDb();
 
-module.exports = (passport) => {
+export default (passport) => {
     passport.use(
         new Strategy(
             { usernameField: "email" },
